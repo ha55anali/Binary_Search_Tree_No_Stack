@@ -3,6 +3,17 @@
 #include <iostream>
 using namespace std;
 
+
+//stores parent of current node and its direction relative to parent
+template<class T>
+struct PushNode{
+	Node<T> * nod;
+	ChildDirection direction;
+	PushNode(Node<T>* n, ChildDirection dir) : nod(n), direction(dir) {};
+
+	enum ChildDirection {left=0, right =1};
+};
+
 template<class T>
 struct Node {
 	T data;
