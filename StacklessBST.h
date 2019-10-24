@@ -48,10 +48,12 @@ public:
 	void print(T const& high, T const& low);
 
 	bool search(T const& d);
+	bool isBalanced();
 private:
 	Node<T>* root;
 	bool IsSuccessor;
 	
+	bool Balance(Node<T>* r,int currDept, int& maxDepth);
 
 	bool remove(T d, Node<T>*& r, Node<T>* prev);
 	Node<T>* detach(T d, Node<T>*& r, Node<T>* prev);
@@ -262,6 +264,39 @@ bool SortedStacklessBST<T>::search(T const& d)
 		return 1;
 }
 
+template<class T>
+bool SortedStacklessBST<T>::isBalanced()
+{
+	int maxDepth = -1;
+	return Balance(root,0,maxDepth);
+}
+
+template<class T>
+bool SortedStacklessBST<T>::Balance(Node<T>* r,int currDepth, int& maxDepth)
+{
+	if (r == nullptr)
+		return 1;
+	//base case, leaf found
+	if (r->left == nullptr && r->right == nullptr) {
+		//if maxDepth not set, set maxDepth
+		if (maxDepth == -1) {
+			maxDepth = currDepth;
+			return 1;
+		}
+		//if leaf not at maxDepth then tree is not balanced
+		else {
+			if (currDepth != maxDepth)
+				return 0;
+			else
+				return 1;
+		}
+	}
+
+	if (Balance((r->left), currDepth + 1, maxDepth))
+		if (Balance((r->right), currDepth + 1, maxDepth))
+			return 1;
+	return 0;
+}
 template<class T>
 bool SortedStacklessBST<T>::remove(T d, Node<T>*& r, Node<T>* prev)
 {
