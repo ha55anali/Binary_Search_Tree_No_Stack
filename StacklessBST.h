@@ -46,9 +46,12 @@ public:
 
 	void print();
 	void print(T const& high, T const& low);
+
+	bool search(T const& d);
 private:
 	Node<T>* root;
 	bool IsSuccessor;
+	
 
 	bool remove(T d, Node<T>*& r, Node<T>* prev);
 	Node<T>* detach(T d, Node<T>*& r, Node<T>* prev);
@@ -232,6 +235,31 @@ void SortedStacklessBST<T>::print(T const& high, T const& low)
 		cout << temp->data << " ";
 		temp = temp->nextInOrder;
 	}
+}
+
+template<class T>
+bool SortedStacklessBST<T>::search(T const& d)
+{
+	Node<T>* trav = root;
+
+	while (trav != nullptr) {
+		//right
+		if (d > trav->data) {
+			trav = trav->right;
+		}
+		//left
+		else if (d < trav->data) {
+			trav = trav->left;
+		}
+		else if (d == trav->data) {
+			break;
+		}
+	}
+
+	if (trav == nullptr)
+		return 0;
+	else
+		return 1;
 }
 
 template<class T>
