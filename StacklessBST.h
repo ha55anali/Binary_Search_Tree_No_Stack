@@ -49,10 +49,13 @@ public:
 
 	bool search(T const& d);
 	bool isBalanced();
+
+	void reverseOrder();
 private:
 	Node<T>* root;
 	bool IsSuccessor;
-	
+	Node<T>* reverseOrder(Node<T>* r);
+
 	bool Balance(Node<T>* r,int currDept, int& maxDepth);
 
 	bool remove(T d, Node<T>*& r, Node<T>* prev);
@@ -269,6 +272,40 @@ bool SortedStacklessBST<T>::isBalanced()
 {
 	int maxDepth = -1;
 	return Balance(root,0,maxDepth);
+}
+
+template<class T>
+void SortedStacklessBST<T>::reverseOrder()
+{
+	if (root == nullptr)
+		return;
+
+	Node<T>* temp = root;
+	if (IsSuccessor == 1) {
+		while (temp->left != nullptr)
+			temp = temp->left;
+	}
+	else {
+		while (temp->right != nullptr)
+			temp = temp->right;
+	}
+
+	IsSuccessor = !IsSuccessor;
+
+	Node<T>* tempRet = reverseOrder(temp);
+	tempRet->nextInOrder = nullptr;
+}
+
+template<class T>
+Node<T>* SortedStacklessBST<T>::reverseOrder(Node<T>* r)
+{
+	if (r->nextInOrder==nullptr)
+		return r;
+
+	Node<T>* temp = r;
+	Node<T>* tempret = reverseOrder(r->nextInOrder);
+	tempret->nextInOrder = r;
+	return r;
 }
 
 template<class T>
