@@ -40,6 +40,7 @@ class SortedStacklessBST {
 public:
 	SortedStacklessBST();
 	~SortedStacklessBST();
+	SortedStacklessBST(SortedStacklessBST const&);
 	bool insert(T d);
 	bool insertStackless(T d);
 
@@ -56,6 +57,8 @@ private:
 	Node<T>* root;
 	bool IsSuccessor;
 	Node<T>* reverseOrder(Node<T>* r);
+
+	void copy( Node<T>* source);
 
 	bool Balance(Node<T>* r,int currDept, int& maxDepth);
 
@@ -105,6 +108,12 @@ SortedStacklessBST<T>::~SortedStacklessBST()
 		trav = trav->nextInOrder;
 		delete trail;
 	}
+}
+
+template<class T>
+SortedStacklessBST<T>::SortedStacklessBST(SortedStacklessBST const& obj)
+{
+	copy(obj.root);
 }
 
 template<typename T>
@@ -336,6 +345,17 @@ Node<T>* SortedStacklessBST<T>::reverseOrder(Node<T>* r)
 	Node<T>* tempret = reverseOrder(r->nextInOrder);
 	tempret->nextInOrder = r;
 	return r;
+}
+
+template<class T>
+void SortedStacklessBST<T>::copy(Node<T>* source)
+{
+	if (source == nullptr)
+		return;
+
+	insertStackless(source->data);
+	copy(source->left);
+	copy(source->right);
 }
 
 template<class T>
