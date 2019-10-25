@@ -53,6 +53,8 @@ public:
 	bool isBalanced();
 
 	void reverseOrder();
+
+	SortedStacklessBST<T>& operator=(SortedStacklessBST<T> const&);
 private:
 	Node<T>* root;
 	bool IsSuccessor;
@@ -312,6 +314,17 @@ void SortedStacklessBST<T>::reverseOrder()
 
 	Node<T>* tempRet = reverseOrder(temp);
 	tempRet->nextInOrder = nullptr;
+}
+
+template<class T>
+SortedStacklessBST<T>& SortedStacklessBST<T>::operator=(SortedStacklessBST<T> const& s)
+{
+	//delete current data
+	delTree();
+
+	copy(s.root);
+
+	return *this;
 }
 
 template<class T>
