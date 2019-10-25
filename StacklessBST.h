@@ -58,6 +58,8 @@ private:
 	bool IsSuccessor;
 	Node<T>* reverseOrder(Node<T>* r);
 
+	void delTree();
+
 	void copy( Node<T>* source);
 
 	bool Balance(Node<T>* r,int currDept, int& maxDepth);
@@ -84,30 +86,7 @@ SortedStacklessBST<T>::SortedStacklessBST()
 template<class T>
 SortedStacklessBST<T>::~SortedStacklessBST()
 {
-	//if tree empty
-	if (root == nullptr)
-		return;
-
-
-	Node<T>* trav = root;
-
-	//get start of linked list element
-	if (IsSuccessor == 1) {
-		while (trav->left != nullptr)
-			trav = trav->left;
-	}
-	else {
-		while (trav->right != nullptr)
-			trav = trav->right;
-	}
-
-	Node<T>* trail = root;
-
-	while (trav != nullptr) {
-		trail = trav;
-		trav = trav->nextInOrder;
-		delete trail;
-	}
+	delTree();
 }
 
 template<class T>
@@ -345,6 +324,35 @@ Node<T>* SortedStacklessBST<T>::reverseOrder(Node<T>* r)
 	Node<T>* tempret = reverseOrder(r->nextInOrder);
 	tempret->nextInOrder = r;
 	return r;
+}
+
+template<class T>
+void SortedStacklessBST<T>::delTree()
+{
+	//if tree empty
+	if (root == nullptr)
+		return;
+
+
+	Node<T> * trav = root;
+
+	//get start of linked list element
+	if (IsSuccessor == 1) {
+		while (trav->left != nullptr)
+			trav = trav->left;
+	}
+	else {
+		while (trav->right != nullptr)
+			trav = trav->right;
+	}
+
+	Node<T>* trail = root;
+
+	while (trav != nullptr) {
+		trail = trav;
+		trav = trav->nextInOrder;
+		delete trail;
+	}
 }
 
 template<class T>
