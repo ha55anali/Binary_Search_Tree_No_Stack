@@ -39,6 +39,7 @@ template<class T>
 class SortedStacklessBST {
 public:
 	SortedStacklessBST();
+	~SortedStacklessBST();
 	bool insert(T d);
 	bool insertStackless(T d);
 
@@ -75,6 +76,35 @@ SortedStacklessBST<T>::SortedStacklessBST()
 {
 	root = nullptr;
 	IsSuccessor = 0;
+}
+
+template<class T>
+SortedStacklessBST<T>::~SortedStacklessBST()
+{
+	//if tree empty
+	if (root == nullptr)
+		return;
+
+
+	Node<T>* trav = root;
+
+	//get start of linked list element
+	if (IsSuccessor == 1) {
+		while (trav->left != nullptr)
+			trav = trav->left;
+	}
+	else {
+		while (trav->right != nullptr)
+			trav = trav->right;
+	}
+
+	Node<T>* trail = root;
+
+	while (trav != nullptr) {
+		trail = trav;
+		trav = trav->nextInOrder;
+		delete trail;
+	}
 }
 
 template<typename T>
