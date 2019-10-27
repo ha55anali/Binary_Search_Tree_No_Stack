@@ -220,6 +220,14 @@ void SortedStacklessBST<T>::print()
 template<class T>
 void SortedStacklessBST<T>::print(T const& high, T const& low)
 {
+	if (high <= low)
+		throw invalid_argument("enter valid upper and lower bounds");
+
+	if (root == nullptr){
+		cout << "empty tree";
+		return;
+	}
+
 	Node<T>* temp = root;
 
 	//find start of linked list
