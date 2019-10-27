@@ -110,6 +110,7 @@ bool SortedStacklessBST<T>::insertStackless(T d)
 	Node<T>* newNode = new Node<T>(d);
 	Node<T>* trav = root;
 	Node<T>* trail = root;
+	Node<T>* prev = nullptr; //stores previous node in the linked list
 
 	//find location of the new node
 	while (trav != nullptr) {
@@ -120,12 +121,12 @@ bool SortedStacklessBST<T>::insertStackless(T d)
 
 				//if at the end of the linked list, insert at end
 				if (trav->nextInOrder == nullptr) {
-					trav->nextInOrder = newNode;
+					prev = trav;
 				}
 				//if r->data < data < next->data insert node here
 				else {
 					if (d < trav->nextInOrder->data) {
-						trav->nextInOrder = newNode;
+						prev = trav;
 					}
 				}
 			}
@@ -142,12 +143,12 @@ bool SortedStacklessBST<T>::insertStackless(T d)
 			if (IsSuccessor == 0) {
 				//if at end of linked list, insert node at end
 				if (trav->nextInOrder == nullptr) {
-					trav->nextInOrder = newNode;
+					prev = trav;
 				}
 				else {
 					// if next < data < current insert node here
 					if (d > trav->nextInOrder->data) {
-						trav->nextInOrder = newNode;
+						prev = trav;
 					}
 				}
 			}
@@ -165,6 +166,10 @@ bool SortedStacklessBST<T>::insertStackless(T d)
 			return 0;
 		}
 	}
+
+	//update previous
+	if (prev!=nullptr)
+		prev->nextInOrder = newNode;
 
 	//insert node in tree
 	if (trail->data > d) {
