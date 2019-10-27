@@ -303,6 +303,8 @@ SortedStacklessBST<T>& SortedStacklessBST<T>::operator=(SortedStacklessBST<T> co
 	//delete current data
 	delTree();
 
+	IsSuccessor = s.IsSuccessor;
+
 	copy(s.root);
 
 	return *this;
