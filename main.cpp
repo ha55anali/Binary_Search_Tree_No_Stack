@@ -1,6 +1,7 @@
 #include"StacklessBST.h"
 #include <string>
 
+//returns 1 if str contains only numbers
 bool isNumber(string const& str) {
 	for (auto it = str.begin(); it != str.end(); ++it) {
 		if (*it<'0' || *it>'9')
@@ -10,6 +11,7 @@ bool isNumber(string const& str) {
 	return 1;
 }
 
+//returns an integer from input
 int InputNum() {
 	string temp;
 	cin >> temp;
@@ -33,10 +35,10 @@ void showMenu() {
 	cout << "7. reverse order of tree"<<endl;
 	cout << "8. copy tree 1 to tree 2"<<endl;
 	cout << "9. Quit" << endl;
-
 }
 
 void programLoop(SortedStacklessBST<int>* b1,SortedStacklessBST<int>* b2) {
+	//temporary variables
 	int temp;
 	int temp2;
 
@@ -56,6 +58,7 @@ void programLoop(SortedStacklessBST<int>* b1,SortedStacklessBST<int>* b2) {
 		switch (choice)
 		{
 		case 1:
+			//print
 			cout << endl << "tree 1: ";
 			b1->print();
 			cout << endl << "tree 2: ";
@@ -63,6 +66,7 @@ void programLoop(SortedStacklessBST<int>* b1,SortedStacklessBST<int>* b2) {
 			break;
 
 		case 2:
+			//overloaded print
 			cout << "Enter lower bound: ";
 			temp = InputNum();
 			cout << "Enter upper bound: ";
@@ -84,6 +88,7 @@ void programLoop(SortedStacklessBST<int>* b1,SortedStacklessBST<int>* b2) {
 			break;
 
 		case 4:
+			//remove element
 			cout << "Enter element to remove: ";
 			temp = InputNum();
 
@@ -95,6 +100,7 @@ void programLoop(SortedStacklessBST<int>* b1,SortedStacklessBST<int>* b2) {
 			break;
 
 		case 5:
+			//search
 			cout << "Enter element to search: ";
 			temp = InputNum();
 			if (b1->search(temp))
@@ -104,6 +110,7 @@ void programLoop(SortedStacklessBST<int>* b1,SortedStacklessBST<int>* b2) {
 			break;
 
 		case 6:
+			//balance
 			if (b1->isBalanced())
 				cout << "balanced";
 			else
@@ -111,14 +118,17 @@ void programLoop(SortedStacklessBST<int>* b1,SortedStacklessBST<int>* b2) {
 			break;
 
 		case 7:
+			//revserse Order
 			b1->reverseOrder();
 			break;
 
 		case 8:
+			//assignment
 			*b2 = *b1;
 			break;
 		
 		case 9:
+			//exit
 			exit = 1;
 			break;
 
@@ -138,65 +148,4 @@ int main() {
 	SortedStacklessBST<int>* b2 = new SortedStacklessBST<int>;
 
 	programLoop(b1, b2);
-
-	/*
-	cout << "sdg";
-	int temp = InputNum();
-	system("pause");*/
-
-	//functions to implement
-	//two lists, copy first to second
-	//add elements
-	//remove elements
-	//search
-	//print
-	//balance
-	//reverse order
-
-	//showMenu();
-
-	//SortedStacklessBST<int>* b=new SortedStacklessBST<int>;
-	//SortedStacklessBST<int>* b2 = new SortedStacklessBST<int>;
-
-	//for (int c = 0; c < 100; ++c) {
-	//	b->insertStackless(c);
-	//	b->reverseOrder();
-	//}
-
-	//b->print();
-
-	//SortedStacklessBST<int>* b2 = new SortedStacklessBST<int>(*b);
-	//delete b;
-	//b2->print();
-	//cout << endl;
-
-	//for (int c = 100; c > 0; --c) {
-	//	cout << b2->search(c);
-	//	b2->remove(c);
-	//}
-
-	//cout << endl;
-	//b2->print();
-
-	//b->insertStackless(100);
-	//b->insertStackless(50);
-	//b->insertStackless(10);
-	//b->insertStackless(70);
-	//b->insertStackless(200);
-	////b.insertStackless(150);
-	////b.insertStackless(120);
-	//b->insertStackless(170);
-	//b->insertStackless(300);
-
-	//b->print();
-	//cout << endl;
-
-	//SortedStacklessBST<int> b2;
-	//b2 = *b;
-	//delete b;
-
-	//b2.print();
-	//b2.reverseOrder();
-	//cout << endl;
-	//b2.print();
 }
