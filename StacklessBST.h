@@ -190,6 +190,11 @@ bool SortedStacklessBST<T>::remove(T d)
 template<class T>
 void SortedStacklessBST<T>::print()
 {
+	if (root == nullptr) {
+		cout << "tree is empty";
+		return;
+	}
+
 	Node<T>* temp = root;
 
 	//find start of linked list
